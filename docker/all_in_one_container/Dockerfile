@@ -9,10 +9,13 @@ RUN apt-get update && \
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir --no-warn-script-location -r requirements.txt
+RUN python3 -m pip install virtualenv
+RUN virtualenv venv
 
-RUN pip install --no-cache-dir --no-warn-script-location chainlit
+COPY requirements.txt .
+RUN . ./venv/bin/activate && pip install --no-cache-dir --no-warn-script-location --no-build-isolation -r requirements.txt
+
+RUN . ./venv/bin/activate && pip install --no-cache-dir --no-warn-script-location --no-build-isolation chainlit
 
 # Define a build argument
 ARG WITH_WEB_SEARCH=true
@@ -43,9 +46,9 @@ COPY playground playground
 ENV EXECUTION_SERVICE_KERNEL_MODE="local"
 
 # Install dependencies for different LLM models
-RUN pip install --no-cache-dir --no-warn-script-location google-generativeai
-RUN pip install --no-cache-dir --no-warn-script-location zhipuai
-RUN pip install --no-cache-dir --no-warn-script-location dashscope
+RUN . ./venv/bin/activate && pip install --no-cache-dir --no-warn-script-location google-generativeai
+RUN . ./venv/bin/activate && pip install --no-cache-dir --no-warn-script-location zhipuai
+RUN . ./venv/bin/activate && pip install --no-cache-dir --no-warn-script-location dashscope
 
 ENTRYPOINT ["/app/entrypoint.sh"]
 

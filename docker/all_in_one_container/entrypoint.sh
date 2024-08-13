@@ -9,4 +9,4 @@ groupmod -g $GROUP_ID taskweaver
 
 chown -R taskweaver:taskweaver /app
 
-su taskweaver -c "python -m taskweaver -p ./project"
+su taskweaver -c ". ./venv/bin/activate && python -m taskweaver -p ./project"
