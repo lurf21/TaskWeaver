@@ -6,9 +6,7 @@ GROUP_ID=${TASKWEAVER_GID:-10002}
 echo "Starting with UID: $USER_ID, GID: $GROUP_ID"
 useradd -u $USER_ID -o -m taskweaver
 groupmod -g $GROUP_ID taskweaver
-usermod -aG sudo taskweaver
 
-chmod u+s /usr/bin/sudo
 chown -R taskweaver:taskweaver /app
 
 su taskweaver -c ". ./venv/bin/activate && /bin/sh"
