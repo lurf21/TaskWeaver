@@ -11,4 +11,4 @@ usermod -aG sudo taskweaver
 chmod u+s /usr/bin/sudo
 chown -R taskweaver:taskweaver /app
 
-su taskweaver -c ". ./venv/bin/activate && python -m taskweaver -p ./project"
+su taskweaver -c ". ./venv/bin/activate && /bin/bash"
